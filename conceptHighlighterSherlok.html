@@ -1,0 +1,96 @@
+<html>
+    <!-- Text Highlighter Data-driven content -->
+<head>
+     <!-- jQuery  -->
+     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<script>
+
+    let colorObject = {
+
+        "COMPANY" : "color:blue;font-weight:bold;",
+        "EVENT" :"color:red;font-weight:bold;",
+        "TOPIC":"color:green;font-weight:bold;",
+		"PARTNERSHIP":"color:orange;font-weight:bold;",
+		"INDUSTRY":"color:gold;font-weight:bold;"
+		"RH":"color:purple;font-weight:bold;"
+    } ;
+
+
+    function createLegend(colorObject){
+        $("#legend").append($("<div>",{class:"col-1", text:"Legend:"}));
+            for(let a in colorObject){
+                $("#legend").append($("<div>",{class:"col-1", text:a,style:colorObject[a]}));
+            };
+
+    }
+
+
+    // Set up event to receive messages
+    if (window.addEventListener) {
+           // For standards-compliant web browsers
+           window.addEventListener("message", onMessage, false);
+       } else {
+           window.attachEvent("onmessage", onMessage);
+       };
+
+    // The following code controls what happens when data is passed to the DDC 
+    // Retrieve data and begin processing
+       function onMessage(event) {
+                // Clean up highlightArea div which already exists 
+                $("#highlightArea").empty();   
+                $("#highlightArea").append($("<div>",{id:"legend",class:"alert-info row"}));
+                createLegend(colorObject);
+               // Parse content in Concept field as JSON          
+                [1].forEach(index=>{
+                    if(event.data.data){  
+                        event.data.data.forEach(row => {
+                            row[index] =  JSON.parse(row[index]);
+                        });
+                    };
+
+                });
+                
+                
+                // Process for each row of data 
+                if(event.data.data) {
+                    event.data.data.forEach(row=>{
+                        row[1][1].data.forEach(item=>{console.log(item[4])});
+                        // First, paste the text 
+                        $("#highlightArea").append($("<li>",{id:"text"+event.data.data.indexOf(row) ,class:"list-group-item row", text:row[0]}));
+                        let textt=$("#text"+event.data.data.indexOf(row)).text();;
+						
+                        row[1][1].data.forEach(match=>{
+                                        var re = new RegExp(`${match[0]}`,'g');
+                                        textt = textt.replace(re, (offset) => {
+                                            return `<span style=${colorObject[`${match[4]}`]}>${match[0]}</span>`;
+                                        });
+                                        document.getElementById("text"+event.data.data.indexOf(row)).innerHTML=textt;
+                                    });
+                    });
+                };
+            }
+ 
+
+
+    
+</script>
+
+
+</head>
+
+<body onload="createLegend({})">
+<div id="highlightArea" class="list-group">
+    <div id="legend" class="row">
+    
+    </div>
+</div>
+
+
+
+<div id="helpfulHint" class="footer alert-warning">Note: While assigning data, please ensure they are in the following order: [The text column], Concept </div>
+</body>
+</html>
