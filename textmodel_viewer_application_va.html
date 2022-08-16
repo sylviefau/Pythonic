@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--
+Copyright 2018 SAS Institute Inc.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    https://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+Text viwer sample application
+
+1) Update location of javascript libraries (messagingUtil.js and contentUtil.js)
+2) Update target JOB execution URL and name of SAS job (if not stored as Public/textmodel_viewer)
+
+-->
+<html>
+<head>
+	<script type="text/javascript" src="https://viyatogo-singlenode/httpd-webserver/messagingUtil.js"></script>
+	<script type="text/javascript" src="https://viyatogo-singlenode/httpd-webserver/contentUtil.js"></script>
+	
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            height: 100%;
+            overflow: hidden;
+        }
+        iframe {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+            height: 100%;
+            width: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+<div>
+	<iframe id="target_url" src=""></iframe>
+</div>
+
+<script>
+    "use strict";
+
+    va.messagingUtil.setOnDataReceivedCallback(updateURL);
+
+	function updateURL(vaMsgObj)
+	{
+		// Function getVAParameters returns the object: {<param_label_1>:<param_value_1>, ... , <param_label_n>:<param_value_n>}
+		// If <parameter_label> has multiple values, <param_value> is an array
+		var vaParameters = va.contentUtil.getVAParameters(vaMsgObj);
+		
+		var textmodel_type = vaParameters._textmodel_type;
+		var textmodel_name = vaParameters._textmodel_name;
+		var textmodel_match_text = vaParameters._textmodel_match_text;
+		var textmodel_text = vaParameters._textmodel_text;
+	
+		if (typeof textmodel_type === 'undefined'){
+		    textmodel_type = "";
+		}
+		if (typeof textmodel_name === 'undefined'){
+		    textmodel_name = "";
+		}
+		if (typeof textmodel_match_text === "undefined"){
+		    textmodel_match_text = "";
+		}
+		if (typeof textmodel_text === "undefined"){
+		    textmodel_text = "";
+		}
+		
+		document.getElementById("target_url").src="https://viyatogo-singlenode/SASJobExecution/?_program=/Public/textmodel_viewer&_action=wait&textmodel_type_where="+textmodel_type
+		  +"&textmodel_name_where="+textmodel_name
+		  +"&textmodel_match_text2_where="+textmodel_match_text
+		  +"&textmodel_text_where="+textmodel_text
+	}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<head>
+<title>Text Categorisation Application</title>
+</head>
+<body>
+
+<h1>Text Categorisation Application</h1>
+
+<form action="https://viyatogo-singlenode/SASJobExecution" target="iframe_a">
+  <input type="hidden" name="_program" value="/public/textmodel_viewer">
+  <input type="hidden" name="_action"  value="execute,wait">
+  
+  <label for="textmodel_type_where">Specify a model type  :</label>
+  <select name="textmodel_type_where" id="textmodel_type_where" multiple>
+    <option value="CATEGORY">Category</option>
+    <option value="SENTIMENT">Sentiment</option>
+    <option value="CONCEPT">Concept</option>
+    <option value=""></option>
+  </select>
+
+  <label for="textmodel_name_where">Specify a model element  :</label>
+  <select name="textmodel_name_where" id="textmodel_name_where" multiple>
+    <option value="020_cat_Negative_022_cat_Food_Neg">020_cat_Negative_022_cat_Food_Neg</option>
+    <option value="nlpNegatedOntime">nlpNegatedOntime</option>
+    <option value="nlpOntime">nlpOntime</option>
+    <option value="010_cat_Positive_013_cat_Entertainment_Pos">010_cat_Positive_013_cat_Entertainment_Pos</option>
+    <option value="010_cat_Positive_014_cat_Baggage_Pos">010_cat_Positive_014_cat_Baggage_Pos</option>
+    <option value="nlpOrganization">nlpOrganization</option>
+    <option value="020_cat_Negative_026_cat_Punctuality_Neg">020_cat_Negative_026_cat_Punctuality_Neg</option>
+    <option value="020_cat_Negative_024_cat_Baggage_Neg">020_cat_Negative_024_cat_Baggage_Neg</option>
+    <option value="010_cat_Positive_015_cat_Crew_Pos">010_cat_Positive_015_cat_Crew_Pos</option>
+    <option value="nlpNegative">nlpNegative</option>
+    <option value="nlpNegativeTerms">nlpNegativeTerms</option>
+    <option value="010_cat_Positive_011_cat_Checkin_pos">010_cat_Positive_011_cat_Checkin_pos</option>
+    <option value="nlpNounGroup">nlpNounGroup</option>
+    <option value="nlpNegatedPositive">nlpNegatedPositive</option>
+    <option value="020_cat_Negative_021_cat_Checkin_Neg">020_cat_Negative_021_cat_Checkin_Neg</option>
+    <option value="nlpPositive">nlpPositive</option>
+    <option value="nlpTime">nlpTime</option>
+    <option value="nlpPositiveTerms">nlpPositiveTerms</option>
+    <option value="Negative">Negative</option>
+    <option value="nlpPerson">nlpPerson</option>
+    <option value="020_cat_Negative_023_cat_Entertainment_Neg">020_cat_Negative_023_cat_Entertainment_Neg</option>
+    <option value="020_cat_Negative_025_cat_Crew_Neg">020_cat_Negative_025_cat_Crew_Neg</option>
+    <option value="nlpPercent">nlpPercent</option>
+    <option value="nlpMeasure">nlpMeasure</option>
+    <option value="Neutral">Neutral</option>
+    <option value="nlpPlace">nlpPlace</option>
+    <option value="Positive">Positive</option>
+    <option value="nlpMoney">nlpMoney</option>
+    <option value="nlpNegation">nlpNegation</option>
+    <option value="nlpDate">nlpDate</option>
+    <option value="nlpOntimeTerms">nlpOntimeTerms</option>
+    <option value="010_cat_Positive_016_cat_Punctuality_Pos">010_cat_Positive_016_cat_Punctuality_Pos</option>
+    <option value="010_cat_Positive_012_cat_Food_Pos">010_cat_Positive_012_cat_Food_Pos</option>
+    <option value="">     </option>
+  </select>
+
+<br/>
+<br/>
+
+<label>Specify a match word(s) to highlight (exact search) :</label>
+<input type="text" name="textmodel_match_text_where" value="">
+
+<br/>
+
+<label>Specify a match word(s) to highlight (contains search)  :</label>
+<input type="text" name="textmodel_match_text2_where" value="">
+
+<br/>
+
+<label>Specify a word(s) to subset the text list (contains search)  :</label>
+<input type="text" name="textmodel_text_where" value="">
+
+<br/>
+
+Return all rows (Y) or subset by only matched text (N):
+<input type="radio" id="Y" name="textmodel_non_match_text" value="Y">
+<label for="Y">Yes</label>
+<input type="radio" id="N" name="textmodel_non_match_text" value="">
+<label for="">No</label><br>
+
+<input type="submit" value="Run Extraction">
+</form>
+
+<br/>
+
+<iframe src="" name="iframe_a" height="600px" width="100%" title="Iframe Example" 
+
+</iframe>
+
+</body>
+</html>
